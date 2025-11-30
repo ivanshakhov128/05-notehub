@@ -1,3 +1,4 @@
+// src/types/note.ts
 export type NoteTag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 
 export interface Note {
@@ -7,12 +8,4 @@ export interface Note {
   tag: NoteTag;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface NotesResponse {
-  notes: Note[];
-  page: number;
-  perPage: number;
-  totalItems: number;
-  totalPages: number;
 }

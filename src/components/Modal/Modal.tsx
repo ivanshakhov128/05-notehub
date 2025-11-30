@@ -11,11 +11,16 @@ const modalRoot = document.getElementById("modal-root") ?? document.body;
 
 export default function Modal({ children, onClose }: ModalProps) {
   useEffect(() => {
+    document.body.style.overflow = "hidden"; // блокування прокрутки
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = ""; // відновлення прокрутки
+    };
   }, [onClose]);
 
   return createPortal(

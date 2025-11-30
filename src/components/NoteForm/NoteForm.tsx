@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./NoteForm.module.css";
 import { createNote } from "../../services/noteService";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Note, NoteTag } from "../../types/note";
 
 interface NoteFormProps {
@@ -25,9 +25,14 @@ interface CreateNotePayload {
 }
 
 export default function NoteForm({ onCancel, onCreated }: NoteFormProps) {
+  const qc = useQueryClient();
+
   const mutation = useMutation<Note, unknown, CreateNotePayload>({
     mutationFn: (payload) => createNote(payload),
-    onSuccess: (note) => onCreated(note),
+    onSuccess: (note) => {
+      onCreated(note);
+      qc.invalidateQueries({ queryKey: ["notes"] }); // обновление списка
+    },
   });
 
   return (
