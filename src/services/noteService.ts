@@ -20,12 +20,8 @@ export interface CreateNoteParams {
 
 export interface NotesResponse {
   notes: Note[];
-  page: number;
-  perPage: number;
-  totalItems: number;
   totalPages: number;
 }
-
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
