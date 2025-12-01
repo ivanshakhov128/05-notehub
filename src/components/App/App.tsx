@@ -23,13 +23,11 @@ export default function App() {
     queryKey: ["notes", page, debouncedSearch],
     queryFn: () =>
       fetchNotes({ page, perPage: PER_PAGE, search: debouncedSearch }),
-    staleTime: 1000 * 60,
+    staleTime: 60_000,
+
     placeholderData: {
       notes: [],
-      totalItems: 0,
       totalPages: 0,
-      page,
-      perPage: PER_PAGE,
     },
   });
 
